@@ -36,10 +36,25 @@ body {font-family: "Raleway", Arial, sans-serif}
   margin: 10px;
 }
 
+/* Portfolio Buttons styling */
 .portfolio-button {
   position: absolute;
   top: 20px;
   left: 20px;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.portfolio-buttons-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.portfolio-buttons-container a {
+  margin-bottom: 10px;
 }
 </style>
 </head>
@@ -48,14 +63,19 @@ body {font-family: "Raleway", Arial, sans-serif}
 <!-- !PAGE CONTENT! -->
 <div class="w3-content" style="max-width:1500px">
 
+  <!-- Portfolio Navigation Buttons -->
+  <div class="portfolio-buttons-container">
+    <a href="#dante-retreat" class="w3-button w3-white" style="font-size:18px;">Photo Shoots</a>
+    <a href="#sound-design-projects" class="w3-button w3-white" style="font-size:18px;">Sound Designs</a>
+    <a href="#video-projects" class="w3-button w3-white" style="font-size:18px;">Video Projects</a>
+  </div>
+
   <!-- New Header: Ivan Zapata with Centered Image and Portfolio Button -->
   <div class="w3-row">
     <h1 class="w3-center" style="font-size:50px; font-weight: bold; margin-top: 20px;">Ivan Zapata</h1>
     <div class="w3-center">
       <img src="your-image.jpg" alt="Ivan Zapata" style="width:40%; margin-top: 20px;">
     </div>
-    <!-- Portfolio Button in top left -->
-    <a href="#dante-retreat" class="w3-button w3-white portfolio-button">Portfolio</a>
   </div>
 
   <!-- Header -->
@@ -63,12 +83,7 @@ body {font-family: "Raleway", Arial, sans-serif}
     <a href="#bio" class="w3-right w3-button w3-white">Bio</a>
   </header>
 
-  <!-- New Header: Photo Shoots -->
-  <div class="w3-row">
-    <h2 class="w3-center" style="font-size:30px; font-weight: bold; margin-bottom: 30px;">Photo Shoots</h2>
-  </div>
-
-  <!-- Photo Grid for Dante's Retreat (with id for navigation) -->
+  <!-- Photo Shoots Section -->
   <div id="dante-retreat" class="w3-row">
     <h2 class="w3-center" style="font-size:24px; margin-bottom: 20px;">Album: Dante's Retreat</h2>
     <div class="w3-half">
@@ -90,7 +105,7 @@ body {font-family: "Raleway", Arial, sans-serif}
   </div>
 
   <!-- Sound Design Projects Section -->
-  <div class="w3-row">
+  <div id="sound-design-projects" class="w3-row">
     <h2 class="w3-center" style="font-size:30px; font-weight: bold; margin-top: 30px;">Sound Design Projects</h2>
   </div>
 
@@ -117,7 +132,7 @@ body {font-family: "Raleway", Arial, sans-serif}
   </div>
 
   <!-- New Section: Video Projects -->
-  <div class="w3-row">
+  <div id="video-projects" class="w3-row">
     <h2 class="w3-center" style="font-size:30px; font-weight: bold; margin-top: 30px;">Video Projects</h2>
   </div>
 
