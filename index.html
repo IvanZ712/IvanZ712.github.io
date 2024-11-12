@@ -22,16 +22,18 @@ body {font-family: "Raleway", Arial, sans-serif}
   color: black;
 }
 
-/* Centering and resizing images in the Milk & Honey section */
+/* Centering images in the Milk & Honey section */
 .milk-honey-images {
   display: flex;
   justify-content: center;
-  gap: 10px; /* Reduced the gap by half from 20px to 10px */
+  gap: 20px;
   flex-wrap: wrap;
 }
+
 .milk-honey-images img {
-  width: 80%; /* Adjust the width to 80% */
-  margin-bottom: 10px; /* Small space between images */
+  max-width: 100%;
+  height: auto;
+  margin: 10px;
 }
 </style>
 </head>
@@ -43,15 +45,17 @@ body {font-family: "Raleway", Arial, sans-serif}
   <!-- Header -->
   <header class="w3-container w3-xlarge w3-padding-24">
     <a href="#" class="w3-left w3-button w3-white">Portfolio</a>
-    <a href="#bio" class="w3-right w3-button w3-white">Bio</a> <!-- Changed link to "Bio" -->
+    <a href="#bio" class="w3-right w3-button w3-white">Bio</a>
   </header>
 
-  <!-- Photo Shoots Header -->
-  <h2 class="w3-center" style="font-size:30px; font-weight: bold;">Photo Shoots</h2> <!-- New header added -->
+  <!-- New Header: Photo Shoots -->
+  <div class="w3-row">
+    <h2 class="w3-center" style="font-size:30px; font-weight: bold; margin-bottom: 30px;">Photo Shoots</h2>
+  </div>
 
   <!-- Photo Grid for Dante's Retreat -->
   <div class="w3-row">
-    <h2 class="w3-center" style="font-size:24px;">Album: Dante's Retreat</h2> <!-- Removed bold from header -->
+    <h2 class="w3-center" style="font-size:24px;">Album: Dante's Retreat</h2>
     <div class="w3-half">
       <img src="Dante's-Retreat-2.jpg" style="width:112%">
       <img src="Dante's-Retreat-23.jpg" style="width:112%">
@@ -64,61 +68,77 @@ body {font-family: "Raleway", Arial, sans-serif}
 
   <!-- Photo Grid for Milk & Honey -->
   <div class="w3-row milk-honey-images">
-    <h2 class="w3-center" style="font-size:24px; margin-bottom: 20px;">Album: Milk & Honey</h2> <!-- Same style and size as the previous header -->
+    <h2 class="w3-center" style="font-size:24px;">Album: Milk & Honey</h2>
     <img src="milk-honey-1.jpg">
     <img src="milk-honey-2.jpg">
     <img src="milk-honey-3.jpg">
   </div>
 
   <!-- Sound Design Projects Section -->
-  <h2 class="w3-center" style="font-size:30px; font-weight: bold;">Sound Design Projects</h2>
-  <div class="w3-center" style="margin-bottom: 20px;">
-    <h3 style="font-size: 24px;">Dinosaur Roar Sound Design</h3>
-    <video width="80%" controls>
-      <source src="dinosaur-roar.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </div>
-  <div class="w3-center">
-    <h3 style="font-size: 24px;">Robot Sound Design</h3>
-    <video width="80%" controls>
-      <source src="robot-sound.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+  <div class="w3-row">
+    <h2 class="w3-center" style="font-size:30px; font-weight: bold; margin-top: 30px;">Sound Design Projects</h2>
   </div>
 
-  <!-- Footer / Bio Section -->
-  <footer class="w3-light-grey w3-padding-64 w3-center" id="bio"> <!-- Changed ID to "bio" -->
-    <h2>Bio</h2> <!-- Changed header text to "Bio" -->
-    <img src="IvanBio.jpg" class="w3-image w3-padding-32" width="750" height="750">
-    <form style="margin:auto;width:60%" action="/action_page.php" target="_blank">
-      <p class="about-text">Ivan Alexander Zapata is a student at Howard Community College studying to receive a degree in audio-video media production (AVMP). Ivan has been interested in media ever since he could remember, whether it was related to animations, shows, films, etc. He would record skits and other types of entertainment videos and would upload them onto YouTube when he was younger. When he was in high school he continued this interest by joining a TV production class as well as entering multiple film contests, one of which he would win third place alongside his team. While in college, he would also be a part of a photography business, helping capture photos as well as coming up with unique concepts and designs for shoots.</p>
-      <p class="about-text">Ivan’s passion for media creation stems from years of admiring different works of art. He realized that the content he would observe brought so much joy to him and others. So he wishes to create as well to make people feel the same. His one goal in life is to make others feel happy, even if it wasn’t in film he would work hard no matter what to accomplish this goal.</p>
+  <!-- Added space between Sound Design Projects and the videos -->
+  <div class="w3-row" style="margin-bottom: 30px;"></div>
 
-      <!-- Download Section -->
-      <div class="download-section">
-        <h3>Download My Resume</h3> <!-- Header for the download section -->
-        <a href="Ivan%20Zapata%20Resume.pdf" download="Ivan Zapata Resume.pdf" class="w3-button w3-dark-grey">Download Resume</a> <!-- Link to download the resume PDF -->
-      </div>
+  <div class="w3-row">
+    <!-- Dinosaur Roar Sound Design -->
+    <h3 class="w3-center" style="font-size:24px;">Dinosaur Roar Sound Design</h3>
+    <div class="w3-center">
+      <video controls style="width:80%; margin-bottom: 30px;">
+        <source src="dinosaur-roar.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
 
-      <p class="w3-large w3-text-pink">Do not hesitate to contact me!</p>
-      <div class="w3-section">
-        <label><b>Name</b></label>
-        <input class="w3-input w3-border" type="text" required name="Name">
-      </div>
-      <div class="w3-section">
-        <label><b>Email</b></label>
-        <input class="w3-input w3-border" type="text" required name="Email">
-      </div>
-      <div class="w3-section">
-        <label><b>Message</b></label>
-        <input class="w3-input w3-border" required name="Message">
-      </div>
-      <button type="submit" class="w3-button w3-block w3-dark-grey">Send</button>
-    </form>
-    <br>
-    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a></p>
-  </footer>
+  <div class="w3-row">
+    <!-- Robot Sound Design -->
+    <h3 class="w3-center" style="font-size:24px;">Robot Sound Design</h3>
+    <div class="w3-center">
+      <video controls style="width:80%; margin-bottom: 30px;">
+        <source src="robot-sound-design.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+<!-- End Page Content -->
+</div>
+
+<!-- Footer / Bio Section -->
+<footer class="w3-light-grey w3-padding-64 w3-center" id="bio">
+  <h2>Bio</h2>
+  <img src="IvanBio.jpg" class="w3-image w3-padding-32" width="750" height="750">
+  <form style="margin:auto;width:60%" action="/action_page.php" target="_blank">
+    <p class="about-text">Ivan Alexander Zapata is a student at Howard Community College studying to receive a degree in audio-video media production (AVMP). Ivan has been interested in media ever since he could remember, whether it was related to animations, shows, films, etc. He would record skits and other types of entertainment videos and would upload them onto YouTube when he was younger. When he was in high school he continued this interest by joining a TV production class as well as entering multiple film contests, one of which he would win third place alongside his team. While in college, he would also be a part of a photography business, helping capture photos as well as coming up with unique concepts and designs for shoots.</p>
+    <p class="about-text">Ivan’s passion for media creation stems from years of admiring different works of art. He realized that the content he would observe brought so much joy to him and others. So he wishes to create as well to make people feel the same. His one goal in life is to make others feel happy, even if it wasn’t in film he would work hard no matter what to accomplish this goal.</p>
+
+    <!-- Download Section -->
+    <div class="download-section">
+      <h3>Download My Resume</h3>
+      <a href="Ivan%20Zapata%20Resume.pdf" download="Ivan Zapata Resume.pdf" class="w3-button w3-dark-grey">Download Resume</a>
+    </div>
+
+    <p class="w3-large w3-text-pink">Do not hesitate to contact me!</p>
+    <div class="w3-section">
+      <label><b>Name</b></label>
+      <input class="w3-input w3-border" type="text" required name="Name">
+    </div>
+    <div class="w3-section">
+      <label><b>Email</b></label>
+      <input class="w3-input w3-border" type="text" required name="Email">
+    </div>
+    <div class="w3-section">
+      <label><b>Message</b></label>
+      <input class="w3-input w3-border" required name="Message">
+    </div>
+    <button type="submit" class="w3-button w3-block w3-dark-grey">Send</button>
+  </form>
+  <br>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
 
 </body>
 </html>
