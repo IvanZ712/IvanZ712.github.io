@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>W3.CSS Template</title>
+<title>Portfolio Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -9,7 +9,7 @@
 <style>
 body {font-family: "Raleway", Arial, sans-serif}
 .w3-row img {margin-bottom: -8px}
-.about-text {font-size: 18px;}  /* Updated font size to 24px */
+.about-text {font-size: 18px;}
 .download-section {
   text-align: center;
   margin-top: 30px;
@@ -29,7 +29,6 @@ body {font-family: "Raleway", Arial, sans-serif}
   gap: 10px;
   flex-wrap: wrap;
 }
-
 .milk-honey-images img {
   max-width: 90%;
   height: auto;
@@ -44,7 +43,6 @@ body {font-family: "Raleway", Arial, sans-serif}
   font-size: 18px;
   margin-right: 10px;
 }
-
 .portfolio-buttons-container {
   position: absolute;
   top: 20px;
@@ -52,7 +50,6 @@ body {font-family: "Raleway", Arial, sans-serif}
   display: flex;
   flex-direction: column;
 }
-
 .portfolio-buttons-container a {
   margin-bottom: 10px;
 }
@@ -64,16 +61,56 @@ body {font-family: "Raleway", Arial, sans-serif}
   text-decoration: underline;
   margin-top: 10px;
 }
-
 .contact-details {
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
-  gap: 15px;  /* Reduced gap between phone number and email */
+  gap: 15px;
 }
-
 .contact-details div {
   font-size: 18px;
+}
+
+/* Video Container for Sliding Animation */
+.video-container {
+  position: relative;
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+#videoPlayer {
+  width: 100%;
+  transition: transform 0.5s ease;
+}
+/* Sliding Animations */
+.slide-in-right {
+  transform: translateX(100%);
+}
+.slide-out-left {
+  transform: translateX(-100%);
+}
+.slide-in-left {
+  transform: translateX(-100%);
+}
+.slide-out-right {
+  transform: translateX(100%);
+}
+button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+#prevButton {
+  left: 5%;
+}
+#nextButton {
+  right: 5%;
 }
 </style>
 </head>
@@ -90,11 +127,9 @@ body {font-family: "Raleway", Arial, sans-serif}
     <a href="#bio" class="w3-button w3-white" style="font-size:18px;">Bio</a>
   </div>
 
-  <!-- New Header: Ivan Zapata with Centered Image and Portfolio Button -->
+  <!-- Header -->
   <div class="w3-row">
     <h1 class="w3-center" style="font-size:50px; font-weight: bold; margin-top: 20px;">Ivan Zapata</h1>
-
-    <!-- Contact Information Header and Details -->
     <div class="w3-row">
       <h2 class="contact-info w3-center">Contact Information:</h2>
     </div>
@@ -102,34 +137,25 @@ body {font-family: "Raleway", Arial, sans-serif}
       <div>Phone number: 301-437-1010</div>
       <div>Email: Ivanzapata712@gmail.com</div>
     </div>
-
     <div class="w3-center">
       <img src="your-image.jpeg" alt="Ivan Zapata" style="width:40%; margin-top: 20px;">
     </div>
   </div>
 
-  <!-- Header -->
-  <header class="w3-container w3-xlarge w3-padding-24"></header>
-
-  <!-- Photo Shoots Section Header -->
+  <!-- Photo Shoots Section -->
   <div class="w3-row">
     <h2 class="w3-center" style="font-size:30px; font-weight: bold; margin-bottom: 30px;">Photo Shoots</h2>
   </div>
-
-  <!-- Photo Shoots Section - Dante's Retreat -->
   <div id="dante-retreat" class="w3-row">
     <h2 class="w3-center" style="font-size:24px; margin-bottom: 20px;">Album: Dante's Retreat</h2>
     <div class="w3-half">
       <img src="Dante's-Retreat-2.jpg" style="width:112%">
       <img src="Dante's-Retreat-23.jpg" style="width:112%">
     </div>
-
     <div class="w3-half">
       <img src="Dante.png" style="width:100%">
     </div>
   </div>
-
-  <!-- Photo Grid for Milk & Honey -->
   <div class="w3-row milk-honey-images">
     <h2 class="w3-center" style="font-size:24px;">Album: Milk & Honey</h2>
     <img src="milk-honey-1.jpg">
@@ -141,48 +167,46 @@ body {font-family: "Raleway", Arial, sans-serif}
   <div id="sound-design-projects" class="w3-row">
     <h2 class="w3-center" style="font-size:30px; font-weight: bold; margin-top: 30px;">Sound Design Projects</h2>
   </div>
+  <div class="w3-row">
+    <h3 class="w3-center" style="font-size:24px;">Dinosaur Roar Sound Design</h3>
+    <div class="w3-center">
+      <video controls style="width:80%; margin-bottom: 30px;">
+        <source src="dinosaur-roar.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
 
-  <!-- Video Projects Section with Next/Previous Video Navigation -->
+  <!-- Video Projects with Sliding Animation -->
   <div id="video-projects" class="w3-row">
     <h2 class="w3-center" style="font-size:30px; font-weight: bold; margin-top: 30px;">Video Projects</h2>
   </div>
-
-  <div class="w3-row" style="margin-bottom: 30px;"></div>
-
-  <div class="w3-center" style="position: relative; display: flex; align-items: center; justify-content: center;">
-    <!-- Previous Button -->
-    <button onclick="prevVideo()" id="prevButton" style="position: absolute; left: 5%; display: none;">&#9664; Previous</button>
-
-    <!-- Video Display -->
-    <video id="videoPlayer" controls style="width:80%; margin-bottom: 30px;">
+  <div class="video-container">
+    <button onclick="prevVideo()" id="prevButton" style="display: none;">&#9664; Previous</button>
+    <video id="videoPlayer" controls>
       <source id="videoSource" src="quarantine-test-opening.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-
-    <!-- Next Button -->
-    <button onclick="nextVideo()" id="nextButton" style="position: absolute; right: 5%;">Next &#9654;</button>
+    <button onclick="nextVideo()" id="nextButton">&#9654; Next</button>
   </div>
 
 </div>
 
-<!-- Footer / Bio Section -->
+<!-- Bio Section -->
 <footer class="w3-light-grey w3-padding-64 w3-center" id="bio">
   <h2>Bio</h2>
   <img src="IvanBio.jpg" class="w3-image w3-padding-32" width="750" height="750">
   <form style="margin:auto;width:60%" action="/action_page.php" target="_blank">
     <p class="about-text">Ivan Alexander Zapata is a student at Howard Community College studying to receive a degree in audio-video media production (AVMP)...</p>
   </form>
-
-  <!-- Download Section -->
   <div class="download-section">
     <h3>Download My Resume</h3>
     <a href="Ivan%20Zapata%20Resume.pdf" download="Ivan Zapata Resume.pdf" class="w3-button w3-dark-grey">Download Resume</a>
   </div>
 </footer>
 
-<!-- JavaScript for Video Navigation -->
+<!-- JavaScript for Video Navigation with Sliding Animation -->
 <script>
-  // Array of video sources
   const videos = [
     { src: "quarantine-test-opening.mp4", title: "Quarantine Test Opening" },
     { src: "car-vibin.mp4", title: "Car Vibin" }
@@ -190,36 +214,39 @@ body {font-family: "Raleway", Arial, sans-serif}
 
   let currentVideoIndex = 0;
 
-  // Function to update the video source
-  function updateVideo() {
+  function updateVideo(direction) {
     const videoPlayer = document.getElementById("videoPlayer");
     const videoSource = document.getElementById("videoSource");
-    videoSource.src = videos[currentVideoIndex].src;
-    videoPlayer.load();
 
-    // Update button visibility
-    document.getElementById("prevButton").style.display = currentVideoIndex === 0 ? "none" : "inline";
-    document.getElementById("nextButton").style.display = currentVideoIndex === videos.length - 1 ? "none" : "inline";
+    videoPlayer.classList.add(direction === "next" ? "slide-out-left" : "slide-out-right");
+    setTimeout(() => {
+      videoSource.src = videos[currentVideoIndex].src;
+      videoPlayer.load();
+      videoPlayer.classList.remove("slide-out-left", "slide-out-right");
+      videoPlayer.classList.add(direction === "next" ? "slide-in-right" : "slide-in-left");
+      setTimeout(() => {
+        videoPlayer.classList.remove("slide-in-right", "slide-in-left");
+      }, 500);
+      document.getElementById("prevButton").style.display = currentVideoIndex === 0 ? "none" : "inline";
+      document.getElementById("nextButton").style.display = currentVideoIndex === videos.length - 1 ? "none" : "inline";
+    }, 500);
   }
 
-  // Function to go to the next video
   function nextVideo() {
     if (currentVideoIndex < videos.length - 1) {
       currentVideoIndex++;
-      updateVideo();
+      updateVideo("next");
     }
   }
 
-  // Function to go to the previous video
   function prevVideo() {
     if (currentVideoIndex > 0) {
       currentVideoIndex--;
-      updateVideo();
+      updateVideo("prev");
     }
   }
 
-  // Initialize the video player with the first video
-  updateVideo();
+  updateVideo("next");
 </script>
 
 </body>
