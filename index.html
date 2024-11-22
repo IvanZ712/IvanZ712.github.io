@@ -9,7 +9,7 @@
 <style>
 body {font-family: "Raleway", Arial, sans-serif}
 .w3-row img {margin-bottom: -8px}
-.about-text {font-size: 18px;}  /* Updated font size to 24px */
+.about-text {font-size: 18px;}
 .download-section {
   text-align: center;
   margin-top: 30px;
@@ -21,22 +21,17 @@ body {font-family: "Raleway", Arial, sans-serif}
   font-weight: bold;
   color: black;
 }
-
-/* Centering images in the Milk & Honey section */
 .milk-honey-images {
   display: flex;
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
 }
-
 .milk-honey-images img {
   max-width: 90%;
   height: auto;
   margin: 10px;
 }
-
-/* Portfolio Buttons styling */
 .portfolio-button {
   position: absolute;
   top: 20px;
@@ -44,7 +39,6 @@ body {font-family: "Raleway", Arial, sans-serif}
   font-size: 18px;
   margin-right: 10px;
 }
-
 .portfolio-buttons-container {
   position: absolute;
   top: 20px;
@@ -52,26 +46,21 @@ body {font-family: "Raleway", Arial, sans-serif}
   display: flex;
   flex-direction: column;
 }
-
 .portfolio-buttons-container a {
   margin-bottom: 10px;
 }
-
-/* Contact Information Section */
 .contact-info {
   font-size: 20px;
   color: #1b99e4;
   text-decoration: underline;
   margin-top: 10px;
 }
-
 .contact-details {
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
-  gap: 15px;  /* Reduced gap between phone number and email */
+  gap: 15px;
 }
-
 .contact-details div {
   font-size: 18px;
 }
@@ -100,7 +89,9 @@ body {font-family: "Raleway", Arial, sans-serif}
     </div>
     <div class="contact-details">
       <div>Phone number: 301-437-1010</div>
-      <div>Email: Ivanzapata712@gmail.com</div>
+      <div>
+        Email: <a href="mailto:Ivanzapata712@gmail.com" style="color: #1b99e4; text-decoration: underline;">Ivanzapata712@gmail.com</a>
+      </div>
     </div>
 
     <div class="w3-center">
@@ -123,7 +114,6 @@ body {font-family: "Raleway", Arial, sans-serif}
       <img src="Dante's-Retreat-2.jpg" style="width:112%">
       <img src="Dante's-Retreat-23.jpg" style="width:112%">
     </div>
-
     <div class="w3-half">
       <img src="Dante.png" style="width:100%">
     </div>
@@ -199,51 +189,9 @@ body {font-family: "Raleway", Arial, sans-serif}
   <!-- Download Section -->
   <div class="download-section">
     <h3>Download My Resume</h3>
-    <a href="Ivan%20Zapata%20Resume.pdf" download="Ivan Zapata Resume.pdf" class="w3-button w3-dark-grey">Download Resume</a>
+    <p><a href="resume/Ivan-Zapata-Resume.pdf" style="text-decoration:underline; color:#1b99e4;">Download PDF</a></p>
   </div>
 </footer>
-
-<!-- JavaScript for Video Navigation -->
-<script>
-  // Array of video sources
-  const videos = [
-    { src: "quarantine-test-opening.mp4", title: "Quarantine Test Opening" },
-    { src: "car-vibin.mp4", title: "Car Vibin" }
-  ];
-
-  let currentVideoIndex = 0;
-
-  // Function to update the video source
-  function updateVideo() {
-    const videoPlayer = document.getElementById("videoPlayer");
-    const videoSource = document.getElementById("videoSource");
-    videoSource.src = videos[currentVideoIndex].src;
-    videoPlayer.load();
-
-    // Update button visibility
-    document.getElementById("prevButton").style.display = currentVideoIndex === 0 ? "none" : "inline";
-    document.getElementById("nextButton").style.display = currentVideoIndex === videos.length - 1 ? "none" : "inline";
-  }
-
-  // Function to go to the next video
-  function nextVideo() {
-    if (currentVideoIndex < videos.length - 1) {
-      currentVideoIndex++;
-      updateVideo();
-    }
-  }
-
-  // Function to go to the previous video
-  function prevVideo() {
-    if (currentVideoIndex > 0) {
-      currentVideoIndex--;
-      updateVideo();
-    }
-  }
-
-  // Initialize the video player with the first video
-  updateVideo();
-</script>
 
 </body>
 </html>
