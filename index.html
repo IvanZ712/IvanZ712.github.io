@@ -178,7 +178,7 @@ body {
    <!-- Next Button -->
    <button onclick="nextVideo()" id="nextButton" style="position: absolute; right: 5%;">Next &#9654;</button>
  </div>
- 
+
 </div>
 
 <!-- Footer / Bio Section -->
@@ -190,7 +190,54 @@ body {
      <p class="about-text">Ivan’s passion for media creation stems from years of admiring different works of art. He realized that the content in movies and shows could affect his mental state, whether it was sad, funny, or happy, which led him to appreciate the people who created them. His main goals in life are to get more experience in the media field and meet like-minded individuals who also have a love for creating entertainment and media for others.</p>
    </form>
 
-  <!-- Download Section -->
-</footer>
+   <!-- Download Section -->
+    <div class="download-section">
+      <h3>Download My Resume</h3>
+      <a href="Ivan%20Zapata%20Resume.pdf" download="Ivan Zapata Resume.pdf" class="w3-button w3-dark-grey">Download Resume</a>
+    </div>
+  </footer>
 
-</body>
+  <!-- JavaScript for Video Navigation -->
+  <script>
+    // Array of video sources
+    const videos = [
+      { src: "quarantine-test-opening.mp4", title: "Quarantine Test Opening" },
+      { src: "car-vibin.mp4", title: "Car Vibin" }
+    ];
+
+    let currentVideoIndex = 0;
+
+    // Function to update the video source
+    function updateVideo() {
+      const videoPlayer = document.getElementById("videoPlayer");
+      const videoSource = document.getElementById("videoSource");
+      videoSource.src = videos[currentVideoIndex].src;
+      videoPlayer.load();
+
+      // Update button visibility
+      document.getElementById("prevButton").style.display = currentVideoIndex === 0 ? "none" : "inline";
+      document.getElementById("nextButton").style.display = currentVideoIndex === videos.length - 1 ? "none" : "inline";
+    }
+
+    // Function to go to the next video
+    function nextVideo() {
+      if (currentVideoIndex < videos.length - 1) {
+        currentVideoIndex++;
+        updateVideo();
+      }
+    }
+
+    // Function to go to the previous video
+    function prevVideo() {
+      if (currentVideoIndex > 0) {
+        currentVideoIndex--;
+        updateVideo();
+      }
+    }
+
+    // Initialize the video player with the first video
+    updateVideo();
+  </script>
+
+  </body>
+  </html>
