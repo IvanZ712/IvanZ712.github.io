@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ivan Alexander Zapata — Video Editor &amp; Director</title>
+<meta name="description" content="Ivan Alexander Zapata — Video Editor, Director &amp; Sound Designer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800&family=Sora:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --void:#0A0605;
+    --ink:#050302;
+    --panel: rgba(255,255,255,0.06);
+    --crimson:#9E1B32;
+    --scarlet:#E63946;
+    --gold:#D4AF37;
+    --bronze:#8C5A1E;
+    --paper:#F4ECD8;
+    --paper-dim: rgba(244,236,216,0.72);
+    --font-display:'Unbounded', sans-serif;
+    --font-body:'Sora', sans-serif;
+    --font-mono:'Space Mono', monospace;
+    --accent-current: var(--scarlet);
+  }
+
+  *{ box-sizing:border-box; }
+  html, body{ height:100%; margin:0; background:var(--void); }
+  body{
+    color:var(--paper);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    scroll-snap-type:y proximity;
+    overflow-y:scroll;
+    scroll-behavior:smooth;
+  }
+  @media (prefers-reduced-motion: reduce){
+    body{ scroll-snap-type:none; scroll-behavior:auto; }
+    *, *::before, *::after{ animation:none !important; transition-duration:0.001ms !important; }
+  }
+
+  img{ max-width:100%; display:block; }
+  ::selection{ background:var(--scarlet); color:var(--ink); }
+  *:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+
+  /* ===== Slide base ===== */
+  .slide{
+    position:relative;
+    height:100vh;
+    width:100%;
+    overflow:hidden;
+    scroll-snap-align:start;
+    display:flex;
+  }
+
+  .slide-bg-wrap{ position:absolute; inset:-24px; transition:transform .6s cubic-bezier(.22,1,.36,1); }
+  .slide-bg{
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+    will-change:opacity, transform;
+  }
+
+  .slide-wash{
+    position:absolute; inset:0;
+    mix-blend-mode:soft-light;
+    opacity:.6;
+  }
+  .slide-shade{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(5,3,2,0.10) 35%, rgba(5,3,2,0.94) 100%);
+  }
+
+  [data-accent="crimson"] .slide-wash{ background:radial-gradient(circle at 25% 20%, var(--scarlet), transparent 60%), radial-gradient(circle at 80% 80%, var(--crimson), transparent 55%); }
+  [data-accent="gold"] .slide-wash{ background:radial-gradient(circle at 75% 25%, var(--gold), transparent 60%), radial-gradient(circle at 20% 80%, var(--bronze), transparent 55%); }
+
+  .slide-mesh{
+    position:absolute; inset:0;
+    background-size:200% 200%;
+    animation:meshShift 14s ease-in-out infinite alternate;
+    will-change:opacity, transform;
+  }
+  @keyframes meshShift{ 0%{ background-position:0% 0%; } 100%{ background-position:100% 100%; } }
+  .mesh-crimson{ background-image:radial-gradient(circle at 20% 30%, var(--scarlet), transparent 55%), radial-gradient(circle at 80% 75%, var(--crimson), transparent 55%); }
+  .mesh-gold{ background-image:radial-gradient(circle at 75% 25%, var(--gold), transparent 55%), radial-gradient(circle at 25% 80%, var(--bronze), transparent 55%); }
+
+  .mesh-spectrum-wrap{ position:absolute; inset:-35%; will-change:opacity, transform; }
+  .mesh-spectrum{
+    position:absolute; inset:0;
+    background:conic-gradient(from 0deg, var(--crimson), var(--scarlet), var(--gold), var(--bronze), var(--ink), var(--crimson));
+    filter:saturate(1.1) blur(70px) brightness(.62);
+    animation:spin 44s linear infinite;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  /* ===== Slide content ===== */
+  .slide-content{
+    position:relative; z-index:3;
+    margin-top:auto;
+    padding:0 8vw 9vh;
+    max-width:760px;
+    will-change:opacity, transform;
+  }
+  .slide-content.center{
+    margin:auto;
+    text-align:center;
+    padding:0 8vw;
+    display:flex; flex-direction:column; align-items:center;
+  }
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12.5px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--paper-dim);
+    margin-bottom:14px;
+  }
+  .slide-title{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(30px,5vw,56px);
+    line-height:1.05;
+    margin:0 0 14px;
+  }
+  .slide-desc{
+    font-size:16.5px;
+    color:var(--paper-dim);
+    max-width:480px;
+    margin:0 auto;
+  }
+  .center .slide-desc{ margin-left:auto; margin-right:auto; }
+
+  .hero-title{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:clamp(40px,9vw,104px);
+    line-height:1;
+    margin:10px 0 18px;
+    background:linear-gradient(90deg, var(--scarlet), var(--crimson), var(--gold), var(--bronze), var(--scarlet));
+    background-size:300% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:gradientShift 8s ease-in-out infinite;
+  }
+  @keyframes gradientShift{ 0%,100%{ background-position:0% 50%; } 50%{ background-position:100% 50%; } }
+
+  .btn-row{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:8px; }
+  .btn{
+    font-family:var(--font-mono); font-size:13px; letter-spacing:.04em;
+    padding:14px 28px; border-radius:40px; cursor:pointer;
+    text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    border:1.5px solid rgba(244,236,216,0.35);
+    transition:transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .btn-primary{ background:var(--paper); color:var(--ink); border-color:var(--paper); }
+  .btn-primary:hover{ transform:translateY(-3px) scale(1.03); }
+  .btn-ghost{ color:var(--paper); background:rgba(255,255,255,0.06); }
+  .btn-ghost:hover{ transform:translateY(-3px); border-color:var(--gold); color:var(--gold); }
+
+  .scroll-hint{
+    margin-top:54px;
+    font-family:var(--font-mono); font-size:11.5px; letter-spacing:.12em; color:var(--paper-dim);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .chevron{ animation:bob 1.8s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{ transform:translateY(0); opacity:.5; } 50%{ transform:translateY(8px); opacity:1; } }
+
+  /* ===== Video / sound card ===== */
+  .video-frame{
+    width:100%; max-width:520px; aspect-ratio:16/9; border-radius:18px;
+    overflow:hidden; background:#000; position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,.6);
+    margin:26px auto 0;
+  }
+  .video-frame video, .video-frame iframe{ width:100%; height:100%; border:0; display:block; background:#000; }
+  .play-btn{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:62px; height:62px; border-radius:50%;
+    background:rgba(5,3,2,0.6); border:1.5px solid rgba(244,236,216,0.55);
+    color:var(--paper); font-size:18px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:background .25s ease, transform .25s ease;
+  }
+  .play-btn:hover{ background:var(--scarlet); border-color:var(--scarlet); transform:translate(-50%,-50%) scale(1.08); }
+  .play-btn.hidden{ display:none; }
+
+  /* ===== Bio ===== */
+  .bio-text{ color:var(--paper-dim); font-size:15.5px; }
+  .bio-text strong{ color:var(--paper); }
+
+  /* ===== Contact ===== */
+  .contact-card{
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    background:var(--panel); border:1px solid rgba(244,236,216,0.18);
+    padding:16px 26px; border-radius:14px; text-decoration:none;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .contact-card:hover{ transform:translateY(-3px); border-color:var(--gold); }
+  .ct-label{ font-family:var(--font-mono); font-size:10.5px; color:var(--paper-dim); letter-spacing:.1em; }
+  .ct-value{ font-family:var(--font-display); font-weight:600; font-size:15px; }
+
+  /* ===== Fixed UI: counter + dots ===== */
+  #counter{
+    position:fixed; left:24px; bottom:22px; z-index:60;
+    font-family:var(--font-mono); font-size:12px; color:var(--paper-dim);
+    letter-spacing:.06em;
+  }
+  #counter span{ color:var(--paper); }
+
+  #dots{
+    position:fixed; right:22px; top:50%; transform:translateY(-50%); z-index:60;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .dot{
+    width:8px; height:8px; border-radius:50%; padding:0; border:none; cursor:pointer;
+    background:rgba(244,236,216,0.28);
+    transition:transform .3s ease, background .3s ease;
+  }
+  .dot.active{ background:var(--accent-current); transform:scale(1.5); }
+  @media (max-width:640px){ #dots{ display:none; } #counter{ left:18px; bottom:16px; } }
+
+  .album-label{ font-size:11px; }
+
+</style>
+</head>
+<body>
+
+  <div id="counter"><span id="counterCurrent">01</span> / <span id="counterTotal">13</span></div>
+  <div id="dots"></div>
+
+  <!-- 0 HERO -->
+  <section class="slide no-photo" data-accent="spectrum" id="s0">
+    <div class="mesh-spectrum-wrap bg-layer"><div class="mesh-spectrum"></div></div>
+    <div class="slide-shade"></div>
+    <div class="slide-content center">
+      <div class="eyebrow">VIDEO EDITOR · DIRECTOR · SOUND DESIGNER</div>
+      <h1 class="hero-title">IVAN ALEXANDER<br>ZAPATA</h1>
+      <p class="slide-desc">A reel, a few photo sets, some sound design — scroll down and it plays like one continuous frame.</p>
+      <div class="scroll-hint">SCROLL<div class="chevron">▾</div></div>
+    </div>
+  </section>
+
+  <!-- 1 VIDEO: Quarantine -->
+  <section class="slide no-photo" data-accent="crimson" id="s1">
+    <div class="slide-mesh mesh-crimson bg-layer"></div>
+    <div class="slide-shade"></div>
+    <div class="slide-content center">
+      <div class="eyebrow">VIDEO · 01</div>
+      <h2 class="slide-title">Quarantine Test Opening</h2>
+      <p class="slide-desc">A title sequence cut together during lockdown — pacing carries the story even with zero budget and one room.</p>
+      <div class="video-frame">
+        <video class="proj-video" controls preload="metadata" playsinline>
+          <source src="quarantine-test-opening.mp4" type="video/mp4">
+        </video>
+        <button class="play-btn" aria-label="Play Quarantine Test Opening">▶</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 VIDEO: Featured -->
+  <section class="slide no-photo" data-accent="gold" id="s2">
+    <div class="slide-mesh mesh-gold bg-layer"></div>
+    <div class="slide-shade"></div>
+    <div class="slide-content center">
+      <div class="eyebrow">VIDEO · 02</div>
+      <!-- Ivan: swap in the real title/description for this one -->
+      <h2 class="slide-title">Featured Video</h2>
+      <p class="slide-desc">Add a quick description here — what it is, and what you handled (edit / direction / both).</p>
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/-UgO388HKr0" title="Ivan Zapata — video project" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 SOUND: Dinosaur -->
+  <section class="slide no-photo" data-accent="crimson" id="s3">
+    <div class="slide-mesh mesh-crimson bg-layer"></div>
+    <div class="slide-shade"></div>
+    <div class="slide-content center">
+      <div class="eyebrow">SOUND DESIGN · 01</div>
+      <h2 class="slide-title">Dinosaur Roar</h2>
+      <p class="slide-desc">Layered, pitched, and textured foley built from scratch to give an extinct animal a believable voice.</p>
+      <div class="video-frame">
+        <video class="proj-video" controls preload="metadata" playsinline>
+          <source src="dinosaur-roar.mp4" type="video/mp4">
+        </video>
+        <button class="play-btn" aria-label="Play Dinosaur Roar">▶</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 SOUND: Robot -->
+  <section class="slide no-photo" data-accent="gold" id="s4">
+    <div class="slide-mesh mesh-gold bg-layer"></div>
+    <div class="slide-shade"></div>
+    <div class="slide-content center">
+      <div class="eyebrow">SOUND DESIGN · 02</div>
+      <h2 class="slide-title">Robot Sound</h2>
+      <p class="slide-desc">Mechanical clicks, servo whines, and synth layers stacked into one cohesive robotic voice.</p>
+      <div class="video-frame">
+        <video class="proj-video" controls preload="metadata" playsinline>
+          <source src="robot-sound.mp4" type="video/mp4">
+        </video>
+        <button class="play-btn" aria-label="Play Robot Sound">▶</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5-7 Dante's Retreat -->
+  <section class="slide" data-accent="gold" id="s5">
+    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('Dante%27s-Retreat-2.jpg')"></div></div>
+    <div class="slide-wash"></div><div class="slide-shade"></div>
+    <div class="slide-content">
+      <div class="eyebrow album-label">PHOTO · DANTE'S RETREAT — 01/03</div>
+      <h2 class="slide-title">Dante's Retreat</h2>
+    </div>
+  </section>
+
+  <section class="slide" data-accent="crimson" id="s6">
+    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('Dante%27s-Retreat-23.jpg')"></div></div>
+    <div class="slide-wash"></div><div class="slide-shade"></div>
+    <div class="slide-content">
+      <div class="eyebrow album-label">PHOTO · DANTE'S RETREAT — 02/03</div>
+    </div>
+  </section>
+
+  <section class="slide" data-accent="gold" id="s7">
+    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('Dante.png')"></div></div>
+    <div class="slide-wash"></div><div class="slide-shade"></div>
+    <div class="slide-content">
+      <div class="eyebrow album-label">PHOTO · DANTE'S RETREAT — 03/03</div>
+    </div>
+  </section>
+
+  <!-- 8-10 Milk & Honey -->
+  <section class="slide" data-accent="crimson" id="s8">
+    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('milk-honey-1.jpg')"></div></div>
+    <div class="slide-wash"></div><div class="slide-shade"></div>
+    <div class="slide-content">
+      <div class="eyebrow album-label">PHOTO · MILK &amp; HONEY — 01/03</div>
+      <h2 class="slide-title">Milk &amp; Honey</h2>
+    </div>
+  </section>
+
+  <section class="slide" data-accent="gold" id="s9">
+    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('milk-honey-2.jpg')"></div></div>
+    <div class="slide-wash"></div><div class="slide-shade"></div>
+    <div class="slide-content">
+      <div class="eyebrow album-label">PHOTO · MILK &amp; HONEY — 02/03</div>
+    </div>
+  </section>
+
+  <section class="slide" data-accent="crimson" id="s10">
+    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('milk-honey-3.jpg')"></div></div>
+    <div class="slide-wash"></div><div class="slide-shade"></div>
+    <div class="slide-content">
+      <div class="eyebrow album-label">PHOTO · MILK &amp; HONEY — 03/03</div>
+    </div>
+  </section>
+
+  <!-- 11 BIO -->
+  <section class="slide" data-accent="gold" id="s11">
+    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('IvanBio.jpg')"></div></div>
+    <div class="slide-wash"></div><div class="slide-shade"></div>
+    <div class="slide-content" style="max-width:600px;">
+      <div class="eyebrow">ABOUT</div>
+      <h2 class="slide-title">Behind The Camera</h2>
+      <p class="bio-text"><strong>Finishing a degree in Audio-Video Media Production at Howard Community College</strong> — but the interest goes back to recording skits as a kid and uploading them to YouTube just to see them finished. A TV production class, a few film contests (third place with his team), and a stint with a photography business followed. What keeps him in it: noticing how an edit, a sound, or a single shot can shift how someone feels.</p>
+      <div class="btn-row" style="justify-content:flex-start; margin-top:18px;">
+        <a href="Ivan%20Zapata%20Resume.pdf" class="btn btn-ghost">⬇ Résumé (PDF)</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 CONTACT -->
+  <section class="slide no-photo" data-accent="spectrum" id="s12">
+    <div class="mesh-spectrum-wrap bg-layer"><div class="mesh-spectrum"></div></div>
+    <div class="slide-shade"></div>
+    <div class="slide-content center">
+      <div class="eyebrow">LET'S TALK</div>
+      <h2 class="slide-title">Make Something With Me</h2>
+      <p class="slide-desc">Got a project that needs a cut, a mix, or a director? This is the part where you reach out.</p>
+      <div class="btn-row" style="margin-top:28px;">
+        <a class="contact-card" href="mailto:Ivanzapata712@gmail.com">
+          <span class="ct-label">EMAIL</span>
+          <span class="ct-value">Ivanzapata712@gmail.com</span>
+        </a>
+        <a class="contact-card" href="tel:3014371010">
+          <span class="ct-label">PHONE</span>
+          <span class="ct-value">301-437-1010</span>
+        </a>
+        <a class="contact-card" href="https://www.linkedin.com/in/ivan-zapata-65b3a319b/" target="_blank" rel="noopener">
+          <span class="ct-label">LINKEDIN</span>
+          <span class="ct-value">/in/ivan-zapata</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+<script>
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isFinePointer = window.matchMedia('(pointer: fine)').matches;
+
+  var accentMap = {
+    crimson:'#E63946', gold:'#D4AF37', spectrum:'#D4AF37'
+  };
+
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var counterCurrent = document.getElementById('counterCurrent');
+  var counterTotal = document.getElementById('counterTotal');
+  var dotsWrap = document.getElementById('dots');
+
+  counterTotal.textContent = String(slides.length).padStart(2,'0');
+
+  slides.forEach(function(slide, i){
+    var dot = document.createElement('button');
+    dot.className = 'dot';
+    dot.setAttribute('aria-label', 'Go to section ' + (i+1));
+    dot.addEventListener('click', function(){
+      slide.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block:'start' });
+    });
+    dotsWrap.appendChild(dot);
+  });
+  var dots = Array.prototype.slice.call(dotsWrap.children);
+
+  function setActiveUI(index){
+    dots.forEach(function(d, i){ d.classList.toggle('active', i === index); });
+    counterCurrent.textContent = String(index+1).padStart(2,'0');
+    var accent = slides[index].dataset.accent;
+    document.documentElement.style.setProperty('--accent-current', accentMap[accent] || accentMap.crimson);
+  }
+
+  /* ---- Continuous, scroll-coupled crossfade (the seamless part) ---- */
+  if(reduceMotion){
+    slides.forEach(function(slide){
+      var bg = slide.querySelector('.bg-layer');
+      if(bg){ bg.style.opacity = 1; }
+      var content = slide.querySelector('.slide-content');
+      if(content){ content.style.opacity = 1; content.style.transform = 'none'; }
+    });
+    setActiveUI(0);
+  } else {
+    var ticking = false;
+
+    function updateFrame(){
+      var vh = window.innerHeight;
+      var bestIndex = 0, bestRatio = -1;
+
+      slides.forEach(function(slide, i){
+        var rect = slide.getBoundingClientRect();
+        var ratio = 1 - Math.min(1, Math.abs(rect.top) / vh);
+        ratio = Math.max(0, ratio);
+
+        var bg = slide.querySelector('.bg-layer');
+        if(bg){
+          bg.style.opacity = ratio;
+          var scale = 1.05 + (1 - ratio) * 0.06;
+          bg.style.transform = 'scale(' + scale + ')';
+        }
+        var content = slide.querySelector('.slide-content');
+        if(content){
+          content.style.opacity = ratio;
+          content.style.transform = 'translateY(' + ((1 - ratio) * 26) + 'px)';
+        }
+        if(ratio > bestRatio){ bestRatio = ratio; bestIndex = i; }
+      });
+
+      setActiveUI(bestIndex);
+      ticking = false;
+    }
+
+    function onScroll(){
+      if(!ticking){ requestAnimationFrame(updateFrame); ticking = true; }
+    }
+    window.addEventListener('scroll', onScroll, { passive:true });
+    window.addEventListener('resize', updateFrame);
+    updateFrame();
+  }
+
+  /* Keyboard navigation */
+  document.addEventListener('keydown', function(e){
+    var current = parseInt(counterCurrent.textContent, 10) - 1;
+    if(e.key === 'ArrowDown' || e.key === 'PageDown'){
+      e.preventDefault();
+      var next = Math.min(slides.length-1, current+1);
+      slides[next].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block:'start' });
+    } else if(e.key === 'ArrowUp' || e.key === 'PageUp'){
+      e.preventDefault();
+      var prev = Math.max(0, current-1);
+      slides[prev].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block:'start' });
+    }
+  });
+
+  /* Subtle parallax on photo slides */
+  if(!reduceMotion && isFinePointer){
+    document.addEventListener('mousemove', function(e){
+      var activeWrap = null, bestRatio = -1;
+      document.querySelectorAll('.slide-bg-wrap').forEach(function(wrap){
+        var rect = wrap.parentElement.getBoundingClientRect();
+        var ratio = 1 - Math.min(1, Math.abs(rect.top) / window.innerHeight);
+        if(ratio > bestRatio){ bestRatio = ratio; activeWrap = wrap; }
+      });
+      if(!activeWrap || bestRatio < 0.4) return;
+      var x = (e.clientX/window.innerWidth - 0.5) * 18;
+      var y = (e.clientY/window.innerHeight - 0.5) * 18;
+      activeWrap.style.transform = 'translate('+x+'px,'+y+'px)';
+    });
+  }
+
+  /* Video play buttons */
+  document.querySelectorAll('.video-frame').forEach(function(box){
+    var video = box.querySelector('video');
+    var btn = box.querySelector('.play-btn');
+    if(!video || !btn) return;
+    btn.addEventListener('click', function(){ video.play(); });
+    video.addEventListener('play', function(){ btn.classList.add('hidden'); });
+    video.addEventListener('pause', function(){ btn.classList.remove('hidden'); });
+    video.addEventListener('ended', function(){ btn.classList.remove('hidden'); });
+  });
+})();
+</script>
+</body>
+</html>
