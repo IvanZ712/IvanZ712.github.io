@@ -243,12 +243,56 @@
 
   .album-label{ font-size:11px; }
 
+  /* ===== Top-left social bar ===== */
+  #social-bar{
+    position:fixed; top:20px; left:24px; z-index:70;
+    display:flex; gap:10px;
+  }
+  #social-bar a{
+    width:36px; height:36px; border-radius:50%;
+    background:rgba(5,3,2,0.55);
+    border:1px solid rgba(244,236,216,0.25);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--paper);
+    backdrop-filter:blur(6px);
+    transition:transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+  #social-bar a:hover{
+    transform:translateY(-2px) scale(1.08);
+    border-color:var(--gold);
+    background:rgba(212,175,55,0.18);
+  }
+  #social-bar svg{ width:16px; height:16px; fill:currentColor; }
+  @media (max-width:560px){
+    #social-bar{ top:14px; left:14px; gap:8px; }
+    #social-bar a{ width:32px; height:32px; }
+    #social-bar svg{ width:14px; height:14px; }
+  }
+
 </style>
 </head>
 <body>
 
   <div id="counter"><span id="counterCurrent">01</span> / <span id="counterTotal">12</span></div>
   <div id="dots"></div>
+
+  <nav id="social-bar" aria-label="Social links">
+    <a href="mailto:Ivanzapata712@gmail.com" aria-label="Email">
+      <svg viewBox="0 0 24 24"><path d="M2 4h20v16H2V4zm2 2v.01L12 13l8-6.99V6H4zm16 2.24-7.4 6.47a1 1 0 0 1-1.2 0L4 8.24V18h16V8.24z"/></svg>
+    </a>
+    <a href="https://www.youtube.com/@ivano_o8781" target="_blank" rel="noopener" aria-label="YouTube">
+      <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
+    </a>
+    <a href="https://www.tiktok.com/@crzyivn" target="_blank" rel="noopener" aria-label="TikTok">
+      <svg viewBox="0 0 24 24"><path d="M16.6 1h-3.3v15.1a3.1 3.1 0 1 1-2.2-2.97V9.8a6.4 6.4 0 1 0 5.5 6.3V8.2a8 8 0 0 0 4.9 1.7V6.6a4.85 4.85 0 0 1-4.9-4.9V1z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/ivan.0u0" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.97.24 2.43.4a4.9 4.9 0 0 1 1.77 1.15 4.9 4.9 0 0 1 1.15 1.77c.16.46.35 1.26.4 2.43.06 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.05 1.17-.24 1.97-.4 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.46.16-1.26.35-2.43.4-1.25.06-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.97-.24-2.43-.4a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.16-.46-.35-1.26-.4-2.43C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.24-1.97.4-2.43a4.9 4.9 0 0 1 1.15-1.77A4.9 4.9 0 0 1 5.6 1.8c.46-.16 1.26-.35 2.43-.4C9.28 1.34 9.68 1.33 12 1.33V2.2zm0 3.13a6.67 6.67 0 1 0 0 13.34 6.67 6.67 0 0 0 0-13.34zm0 11a4.33 4.33 0 1 1 0-8.66 4.33 4.33 0 0 1 0 8.66zm6.93-11.27a1.56 1.56 0 1 1-3.12 0 1.56 1.56 0 0 1 3.12 0z"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/in/ivan-zapata-65b3a319b/" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.25h4V23h-4V8.25zM8.5 8.25h3.83v2.01h.05c.53-1 1.84-2.05 3.79-2.05 4.05 0 4.8 2.67 4.8 6.14V23h-4v-6.7c0-1.6-.03-3.66-2.23-3.66-2.24 0-2.58 1.75-2.58 3.55V23h-4V8.25z"/></svg>
+    </a>
+  </nav>
 
   <!-- 0 HERO -->
   <section class="slide no-photo" data-accent="spectrum" id="s0">
@@ -257,17 +301,6 @@
     <div class="slide-content center">
       <div class="eyebrow">VIDEO EDITOR · DIRECTOR · SOUND DESIGNER</div>
       <h1 class="hero-title">IVAN ALEXANDER<br>ZAPATA</h1>
-
-      <div class="btn-row" style="margin-top:18px;">
-        <a class="contact-card" href="mailto:Ivanzapata712@gmail.com">
-          <span class="ct-label">EMAIL</span>
-          <span class="ct-value">Ivanzapata712@gmail.com</span>
-        </a>
-        <a class="contact-card" href="https://www.linkedin.com/in/ivan-zapata-65b3a319b/" target="_blank" rel="noopener">
-          <span class="ct-label">LINKEDIN</span>
-          <span class="ct-value">/in/ivan-zapata</span>
-        </a>
-      </div>
 
       <p class="slide-desc" style="margin-top:28px;">Photos first, then the sound, then the video that ties it together — scroll down to see all of it.</p>
       <div class="scroll-hint">SCROLL<div class="chevron">▾</div></div>
