@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ivan Alexander Zapata — Sound Design</title>
-<meta name="description" content="Sound design projects by Ivan Alexander Zapata.">
+<title>Ivan Alexander Zapata — Video Editor &amp; Director</title>
+<meta name="description" content="Ivan Alexander Zapata — Video Editor, Director &amp; Sound Designer.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800&family=Sora:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -60,12 +60,6 @@
   .slide-bg{
     position:absolute; inset:0;
     background-size:cover; background-position:center;
-    will-change:opacity, transform;
-  }
-  .slide-bg-video{
-    position:absolute; inset:0;
-    width:100%; height:100%;
-    object-fit:cover; object-position:center;
     will-change:opacity, transform;
   }
 
@@ -276,19 +270,6 @@
   }
 
 
-  /* ===== Sound design grid (3 projects, one slide) ===== */
-  .sound-grid{
-    display:flex; gap:32px; flex-wrap:wrap; justify-content:center;
-    margin-top:28px; width:100%;
-  }
-  .sound-item{
-    flex:1 1 280px; max-width:340px;
-    display:flex; flex-direction:column; align-items:center; text-align:center;
-  }
-  .sound-item .video-frame{ width:100%; max-width:320px; margin:14px auto 0; }
-  .sound-item-title{ font-family:var(--font-display); font-weight:700; font-size:19px; margin:0 0 6px; }
-  .sound-item-desc{ font-size:13.5px; color:var(--paper-dim); max-width:300px; margin:0 auto; }
-
   /* ===== Hub navigation cards (index hub slide) ===== */
   .hub-grid{
     display:flex; gap:20px; flex-wrap:wrap; justify-content:center;
@@ -324,7 +305,7 @@
 </head>
 <body>
 
-  <div id="counter"><span id="counterCurrent">01</span> / <span id="counterTotal">02</span></div>
+  <div id="counter"><span id="counterCurrent">01</span> / <span id="counterTotal">03</span></div>
   <div id="dots"></div>
 
   <nav id="social-bar" aria-label="Social links">
@@ -345,68 +326,62 @@
     </a>
   </nav>
 
-  <a id="back-home" href="index.html">← Home</a>
-
-<!-- 8 SOUND DESIGN — title slide with looping video background -->
-  <section class="slide no-photo" data-accent="crimson" id="s8">
-    <div class="slide-bg-wrap">
-      <video class="slide-bg-video bg-layer" autoplay muted loop playsinline preload="auto">
-        <source src="Sound%20Background%20vid.mp4" type="video/mp4">
-      </video>
-    </div>
-    <div class="slide-wash"></div><div class="slide-shade"></div>
+<!-- 0 HERO -->
+  <section class="slide no-photo" data-accent="spectrum" id="s0">
+    <div class="mesh-spectrum-wrap bg-layer"><div class="mesh-spectrum"></div></div>
+    <div class="slide-shade"></div>
     <div class="slide-content center">
-      <h2 class="slide-title" style="font-size:clamp(40px,7vw,84px);">Sound Design</h2>
+      <div class="eyebrow">CREATIVE DIRECTOR · VIDEO EDITOR · STORYTELLER</div>
+      <h1 class="hero-title">IVAN ALEXANDER<br>ZAPATA</h1>
+
+      <p class="slide-desc" style="margin-top:28px;">If you left without feeling impressed, then I must be doing something wrong.</p>
+      <div class="scroll-hint">SCROLL<div class="chevron">▾</div></div>
     </div>
   </section>
 
-  <!-- 9 SOUND DESIGN — the three projects -->
-  <section class="slide no-photo tall" data-accent="gold" id="s9">
-    <div class="slide-mesh mesh-gold bg-layer"></div>
-    <div class="slide-shade"></div>
-    <div class="slide-content center" style="max-width:1100px;">
-      <div class="eyebrow">SOUND DESIGN</div>
-      <h2 class="slide-title">Voices Built From Scratch</h2>
-      <p class="slide-desc">Foley, environments, and full soundscapes — three projects, three completely different challenges.</p>
-
-      <div class="sound-grid">
-        <div class="sound-item">
-          <div class="sound-item-title">Dinosaur Roar</div>
-          <p class="sound-item-desc">Layered, pitched, and textured foley built from scratch to give an extinct animal a believable voice.</p>
-          <div class="video-frame">
-            <video class="proj-video" controls preload="metadata" playsinline>
-              <source src="dinosaur-roar.mp4" type="video/mp4">
-            </video>
-            <button class="play-btn" aria-label="Play Dinosaur Roar">▶</button>
-          </div>
-        </div>
-
-        <div class="sound-item">
-          <div class="sound-item-title">Robot Sound</div>
-          <p class="sound-item-desc">Mechanical clicks, servo whines, and synth layers stacked into one cohesive robotic voice.</p>
-          <div class="video-frame">
-            <video class="proj-video" controls preload="metadata" playsinline>
-              <source src="robot-sound.mp4" type="video/mp4">
-            </video>
-            <button class="play-btn" aria-label="Play Robot Sound">▶</button>
-          </div>
-        </div>
-
-        <div class="sound-item">
-          <div class="sound-item-title">Sputnik Sound Design</div>
-          <p class="sound-item-desc">A full soundscape built from scratch for an alien world — creature, environment, and machine.</p>
-          <div class="video-frame">
-            <video class="proj-video" controls preload="metadata" playsinline>
-              <source src="Sputnik_Sound%20Design%20Project%20-%20Trim.mp4" type="video/mp4">
-            </video>
-            <button class="play-btn" aria-label="Play Sputnik Sound Design">▶</button>
-          </div>
-        </div>
+  <!-- 1 ABOUT ME -->
+  <section class="slide tall" data-accent="gold" id="s1">
+    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('IvanBio.jpg'); background-position:center 30%;"></div></div>
+    <div class="slide-wash"></div><div class="slide-shade"></div>
+    <div class="slide-content" style="max-width:600px;">
+      <h2 class="slide-title">About Me</h2>
+      <p class="bio-text"><strong>Finishing a degree in Audio-Video Media Production at Howard Community College</strong> — but the interest goes back to recording skits as a kid and uploading them to YouTube just to see them finished. A TV production class, a few film contests (third place with his team), and a stint with a photography business followed. What keeps him in it: noticing how an edit, a sound, or a single shot can shift how someone feels.</p>
+      <div class="btn-row" style="justify-content:flex-start; margin-top:18px;">
+        <a href="Ivan%20Zapata%20Resume.pdf" class="btn btn-ghost">⬇ Résumé (PDF)</a>
       </div>
     </div>
   </section>
 
-  <script>
+    <!-- 2 EXPLORE (hub) -->
+  <section class="slide no-photo" data-accent="crimson" id="s2">
+    <div class="slide-mesh mesh-crimson bg-layer"></div>
+    <div class="slide-shade"></div>
+    <div class="slide-content center" style="max-width:820px;">
+      <div class="eyebrow">EXPLORE THE WORK</div>
+      <h2 class="slide-title">Where To Next?</h2>
+      <p class="slide-desc">Pick a lane — photos, sound, or video.</p>
+
+      <div class="hub-grid">
+        <a class="hub-card" href="photos.html">
+          <div class="hub-card-label">Photos</div>
+          <div class="hub-card-sub">Photo shoots &amp; albums</div>
+          <div class="hub-card-arrow">VIEW PHOTOS →</div>
+        </a>
+        <a class="hub-card" href="sound-design.html">
+          <div class="hub-card-label">Sound Design</div>
+          <div class="hub-card-sub">Foley, voices &amp; soundscapes</div>
+          <div class="hub-card-arrow">LISTEN IN →</div>
+        </a>
+        <a class="hub-card" href="videos.html">
+          <div class="hub-card-label">Videos</div>
+          <div class="hub-card-sub">Edits, directing &amp; full projects</div>
+          <div class="hub-card-arrow">WATCH VIDEOS →</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+<script>
 (function(){
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isFinePointer = window.matchMedia('(pointer: fine)').matches;
@@ -419,7 +394,6 @@
   var counterCurrent = document.getElementById('counterCurrent');
   var counterTotal = document.getElementById('counterTotal');
   var dotsWrap = document.getElementById('dots');
-
 
   counterTotal.textContent = String(slides.length).padStart(2,'0');
 
