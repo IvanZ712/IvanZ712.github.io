@@ -206,6 +206,30 @@
   .play-btn:hover{ background:var(--scarlet); border-color:var(--scarlet); transform:translate(-50%,-50%) scale(1.08); }
   .play-btn.hidden{ display:none; }
 
+  /* ===== Video theater overlay ===== */
+  #video-theater{
+    position:fixed; inset:0; z-index:300;
+    background:rgba(5,3,2,0.88);
+    display:flex; align-items:center; justify-content:center;
+    padding:48px 24px;
+    opacity:0; pointer-events:none;
+    transition:opacity .3s ease;
+  }
+  #video-theater.open{ opacity:1; pointer-events:auto; }
+  #video-theater-inner{
+    width:min(920px, 86vw);
+    max-height:82vh;
+    aspect-ratio:16/9;
+    border-radius:18px;
+    overflow:hidden;
+    background:#000;
+    box-shadow:0 40px 100px rgba(0,0,0,.65);
+    transform:scale(.94);
+    transition:transform .3s ease;
+  }
+  #video-theater.open #video-theater-inner{ transform:scale(1); }
+  #video-theater-inner video{ width:100%; height:100%; display:block; object-fit:contain; background:#000; }
+
   /* ===== About text ===== */
   .bio-text{ color:var(--paper-dim); font-size:15.5px; max-width:560px; }
   .bio-text strong{ color:var(--paper); }
@@ -430,6 +454,11 @@
     </div>
   </section>
 
+  <!-- Video theater overlay -->
+  <div id="video-theater" aria-hidden="true">
+    <div id="video-theater-inner"></div>
+  </div>
+
 <script>
 (function(){
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -543,15 +572,58 @@
     });
   }
 
-  /* Video play buttons */
+  /* Video play buttons + theater mode */
+  var theater = document.getElementById('video-theater');
+  var theaterInner = document.getElementById('video-theater-inner');
+  var theaterActiveVideo = null;
+  var theaterOriginalParent = null;
+  var theaterOriginalNextSibling = null;
+
+  function openTheater(video){
+    if(theaterActiveVideo === video) return;
+    theaterOriginalParent = video.parentNode;
+    theaterOriginalNextSibling = video.nextSibling;
+    theaterInner.appendChild(video);
+    theaterActiveVideo = video;
+    theater.classList.add('open');
+    theater.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeTheater(){
+    if(!theaterActiveVideo) return;
+    var video = theaterActiveVideo;
+    theater.classList.remove('open');
+    theater.setAttribute('aria-hidden', 'true');
+    if(theaterOriginalNextSibling){
+      theaterOriginalParent.insertBefore(video, theaterOriginalNextSibling);
+    } else {
+      theaterOriginalParent.appendChild(video);
+    }
+    theaterActiveVideo = null;
+    theaterOriginalParent = null;
+    theaterOriginalNextSibling = null;
+  }
+
+  theater.addEventListener('click', function(e){
+    if(e.target === theater){ closeTheater(); }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && theaterActiveVideo){ closeTheater(); }
+  });
+
   document.querySelectorAll('.video-frame').forEach(function(box){
     var video = box.querySelector('video');
     var btn = box.querySelector('.play-btn');
-    if(!video || !btn) return;
-    btn.addEventListener('click', function(){ video.play(); });
-    video.addEventListener('play', function(){ btn.classList.add('hidden'); });
-    video.addEventListener('pause', function(){ btn.classList.remove('hidden'); });
-    video.addEventListener('ended', function(){ btn.classList.remove('hidden'); });
+    if(!video) return;
+    if(btn){
+      btn.addEventListener('click', function(){ video.play(); });
+    }
+    video.addEventListener('play', function(){
+      if(btn){ btn.classList.add('hidden'); }
+      openTheater(video);
+    });
+    video.addEventListener('pause', function(){ if(btn){ btn.classList.remove('hidden'); } });
+    video.addEventListener('ended', function(){ if(btn){ btn.classList.remove('hidden'); } });
   });
 })();
 </script>
