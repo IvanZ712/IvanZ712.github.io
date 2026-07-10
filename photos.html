@@ -62,6 +62,12 @@
     background-size:cover; background-position:center;
     will-change:opacity, transform;
   }
+  .slide-bg-video{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover; object-position:center;
+    will-change:opacity, transform;
+  }
 
   .slide-wash{
     position:absolute; inset:0;
@@ -301,11 +307,13 @@
   #back-home:hover{ transform:translateY(-2px); border-color:var(--gold); background:rgba(212,175,55,0.18); }
   @media (max-width:560px){ #back-home{ top:14px; right:14px; padding:8px 14px; font-size:11px; } }
 
+  .dot.group-start{ margin-top:14px; }
+
 </style>
 </head>
 <body>
 
-  <div id="counter"><span id="counterCurrent">01</span> / <span id="counterTotal">08</span></div>
+  <div id="counter"><span id="counterCurrent">01</span> / <span id="counterTotal">09</span></div>
   <div id="dots"></div>
 
   <nav id="social-bar" aria-label="Social links">
@@ -328,8 +336,21 @@
 
   <a id="back-home" href="index.html">← Home</a>
 
+<!-- 1b PHOTOS — title slide with looping video background -->
+  <section class="slide no-photo" data-accent="gold" id="s1b">
+    <div class="slide-bg-wrap">
+      <video class="slide-bg-video bg-layer" autoplay muted loop playsinline preload="auto">
+        <source src="PHOTOS_BACKGROUND_FILENAME.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="slide-wash"></div><div class="slide-shade"></div>
+    <div class="slide-content center">
+      <h2 class="slide-title" style="font-size:clamp(40px,7vw,84px);">Photos</h2>
+    </div>
+  </section>
+
 <!-- 2-4 Dante's Retreat -->
-  <section class="slide" data-accent="crimson" id="s2">
+  <section class="slide" data-accent="crimson" data-album="Dante's Retreat" id="s2">
     <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('Dante%27s-Retreat-2.jpg')"></div></div>
     <div class="slide-wash"></div><div class="slide-shade"></div>
     <div class="slide-content">
@@ -338,7 +359,7 @@
     </div>
   </section>
 
-  <section class="slide" data-accent="gold" id="s3">
+  <section class="slide" data-accent="crimson" data-album="Dante's Retreat" id="s3">
     <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('Dante%27s-Retreat-23.jpg')"></div></div>
     <div class="slide-wash"></div><div class="slide-shade"></div>
     <div class="slide-content">
@@ -346,7 +367,7 @@
     </div>
   </section>
 
-  <section class="slide" data-accent="crimson" id="s4">
+  <section class="slide" data-accent="crimson" data-album="Dante's Retreat" id="s4">
     <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('Dante.png')"></div></div>
     <div class="slide-wash"></div><div class="slide-shade"></div>
     <div class="slide-content">
@@ -355,7 +376,7 @@
   </section>
 
   <!-- 5-7 Milk & Honey -->
-  <section class="slide" data-accent="gold" id="s5">
+  <section class="slide" data-accent="gold" data-album="Milk &amp; Honey" id="s5">
     <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('milk-honey-1.jpg')"></div></div>
     <div class="slide-wash"></div><div class="slide-shade"></div>
     <div class="slide-content">
@@ -364,7 +385,7 @@
     </div>
   </section>
 
-  <section class="slide" data-accent="crimson" id="s6">
+  <section class="slide" data-accent="gold" data-album="Milk &amp; Honey" id="s6">
     <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('milk-honey-2.jpg')"></div></div>
     <div class="slide-wash"></div><div class="slide-shade"></div>
     <div class="slide-content">
@@ -372,7 +393,7 @@
     </div>
   </section>
 
-  <section class="slide" data-accent="gold" id="s7">
+  <section class="slide" data-accent="gold" data-album="Milk &amp; Honey" id="s7">
     <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('milk-honey-3.jpg')"></div></div>
     <div class="slide-wash"></div><div class="slide-shade"></div>
     <div class="slide-content">
@@ -381,7 +402,7 @@
   </section>
 
   <!-- 7b-7c Moonlight -->
-  <section class="slide" data-accent="crimson" id="s7b">
+  <section class="slide" data-accent="crimson" data-album="Moonlight" id="s7b">
     <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('Moonlight-1.jpg')"></div></div>
     <div class="slide-wash"></div><div class="slide-shade"></div>
     <div class="slide-content">
@@ -390,7 +411,7 @@
     </div>
   </section>
 
-  <section class="slide" data-accent="gold" id="s7c">
+  <section class="slide" data-accent="crimson" data-album="Moonlight" id="s7c">
     <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('Moonlight-2.jpg')"></div></div>
     <div class="slide-wash"></div><div class="slide-shade"></div>
     <div class="slide-content">
@@ -418,6 +439,9 @@
     var dot = document.createElement('button');
     dot.className = 'dot';
     dot.setAttribute('aria-label', 'Go to section ' + (i+1));
+    var prevAlbum = i > 0 ? slides[i-1].dataset.album : undefined;
+    var thisAlbum = slide.dataset.album;
+    if(thisAlbum && thisAlbum !== prevAlbum){ dot.classList.add('group-start'); }
     dot.addEventListener('click', function(){
       slide.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block:'start' });
     });
