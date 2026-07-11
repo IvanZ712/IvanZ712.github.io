@@ -307,20 +307,82 @@
   #back-home:hover{ transform:translateY(-2px); border-color:var(--gold); background:rgba(212,175,55,0.18); }
   @media (max-width:560px){ #back-home{ top:14px; right:14px; padding:8px 14px; font-size:11px; } }
 
-  .dot.group-start{ margin-top:14px; }
-
-  .album-gap{
-    height:14vh;
-    min-height:90px;
-    background:var(--void);
-    scroll-snap-align:none;
+  /* ===== Photo carousel (per-album, horizontal infinite swipe) ===== */
+  .carousel-slide{
+    padding:0;
+    flex-direction:column;
+    display:flex;
   }
+  .album-header{
+    position:relative; z-index:5;
+    text-align:center;
+    padding:12vh 8vw 3vh;
+  }
+  .album-header .eyebrow{ justify-content:center; display:flex; }
+  .album-title{
+    font-family:var(--font-display); font-weight:700;
+    font-size:clamp(30px,5vw,52px);
+    margin:0;
+  }
+  .carousel-shell{
+    position:relative;
+    width:100%; flex:1; min-height:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .carousel-track{
+    display:flex;
+    width:100%; height:100%;
+    overflow-x:auto; overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .carousel-track::-webkit-scrollbar{ display:none; }
+  .carousel-item{
+    flex:0 0 100%;
+    width:100%; height:100%;
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+    position:relative;
+    display:flex; align-items:flex-end;
+    overflow:hidden;
+  }
+  .carousel-item img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover; object-position:center;
+  }
+  .carousel-item .item-shade{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(5,3,2,0.05) 40%, rgba(5,3,2,0.92) 100%);
+  }
+  .carousel-item .item-caption{
+    position:relative; z-index:2;
+    padding:0 8vw 6vh;
+  }
+  .carousel-item .item-eyebrow{
+    font-family:var(--font-mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--paper-dim);
+  }
+
+  .carousel-arrow{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:20;
+    width:52px; height:52px; border-radius:50%;
+    background:rgba(5,3,2,0.5); border:1px solid rgba(244,236,216,0.3);
+    color:var(--paper); font-size:22px; cursor:pointer; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    transition:background .25s ease, border-color .25s ease, transform .25s ease;
+  }
+  .carousel-arrow:hover{ background:rgba(212,175,55,0.22); border-color:var(--gold); transform:translateY(-50%) scale(1.06); }
+  .carousel-arrow.left{ left:20px; }
+  .carousel-arrow.right{ right:20px; }
+  @media (max-width:640px){ .carousel-arrow{ width:42px; height:42px; font-size:18px; } .carousel-arrow.left{ left:10px; } .carousel-arrow.right{ right:10px; } }
 
 </style>
 </head>
 <body>
 
-  <div id="counter"><span id="counterCurrent">01</span> / <span id="counterTotal">09</span></div>
+  <div id="counter"><span id="counterCurrent">01</span> / <span id="counterTotal">04</span></div>
   <div id="dots"></div>
 
   <nav id="social-bar" aria-label="Social links">
@@ -356,77 +418,42 @@
     </div>
   </section>
 
-<!-- 2-4 Dante's Retreat -->
-  <section class="slide" data-accent="crimson" data-album="Dante's Retreat" id="s2">
-    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('Dante%27s-Retreat-2.jpg')"></div></div>
-    <div class="slide-wash"></div><div class="slide-shade"></div>
-    <div class="slide-content">
-      <div class="eyebrow album-label">PHOTO · DANTE'S RETREAT — 01/03</div>
-      <h2 class="slide-title">Dante's Retreat</h2>
+<!-- 2 DANTE'S RETREAT — album carousel -->
+  <section class="slide no-photo carousel-slide" data-accent="crimson" id="s2">
+    <div class="album-header">
+      <div class="eyebrow">ALBUM · 01</div>
+      <h2 class="album-title">Dante's Retreat</h2>
+    </div>
+    <div class="carousel-shell">
+      <button class="carousel-arrow left" data-carousel="dante" data-dir="-1" aria-label="Previous photo">‹</button>
+      <div class="carousel-track" id="track-dante"></div>
+      <button class="carousel-arrow right" data-carousel="dante" data-dir="1" aria-label="Next photo">›</button>
     </div>
   </section>
 
-  <section class="slide" data-accent="crimson" data-album="Dante's Retreat" id="s3">
-    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('Dante%27s-Retreat-23.jpg')"></div></div>
-    <div class="slide-wash"></div><div class="slide-shade"></div>
-    <div class="slide-content">
-      <div class="eyebrow album-label">PHOTO · DANTE'S RETREAT — 02/03</div>
+<!-- 3 MILK & HONEY — album carousel -->
+  <section class="slide no-photo carousel-slide" data-accent="gold" id="s3">
+    <div class="album-header">
+      <div class="eyebrow">ALBUM · 02</div>
+      <h2 class="album-title">Milk &amp; Honey</h2>
+    </div>
+    <div class="carousel-shell">
+      <button class="carousel-arrow left" data-carousel="honey" data-dir="-1" aria-label="Previous photo">‹</button>
+      <div class="carousel-track" id="track-honey"></div>
+      <button class="carousel-arrow right" data-carousel="honey" data-dir="1" aria-label="Next photo">›</button>
     </div>
   </section>
 
-  <section class="slide" data-accent="crimson" data-album="Dante's Retreat" id="s4">
-    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('Dante.png')"></div></div>
-    <div class="slide-wash"></div><div class="slide-shade"></div>
-    <div class="slide-content">
-      <div class="eyebrow album-label">PHOTO · DANTE'S RETREAT — 03/03</div>
+<!-- 4 MOONLIGHT — album carousel -->
+  <section class="slide no-photo carousel-slide" data-accent="crimson" id="s4">
+    <div class="album-header">
+      <div class="eyebrow">ALBUM · 03</div>
+      <h2 class="album-title">Moonlight</h2>
     </div>
-  </section>
-
-  <div class="album-gap" aria-hidden="true"></div>
-
-  <!-- 5-7 Milk & Honey -->
-  <section class="slide" data-accent="gold" data-album="Milk &amp; Honey" id="s5">
-    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('milk-honey-1.jpg')"></div></div>
-    <div class="slide-wash"></div><div class="slide-shade"></div>
-    <div class="slide-content">
-      <div class="eyebrow album-label">PHOTO · MILK &amp; HONEY — 01/03</div>
-      <h2 class="slide-title">Milk &amp; Honey</h2>
-    </div>
-  </section>
-
-  <section class="slide" data-accent="gold" data-album="Milk &amp; Honey" id="s6">
-    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('milk-honey-2.jpg')"></div></div>
-    <div class="slide-wash"></div><div class="slide-shade"></div>
-    <div class="slide-content">
-      <div class="eyebrow album-label">PHOTO · MILK &amp; HONEY — 02/03</div>
-    </div>
-  </section>
-
-  <section class="slide" data-accent="gold" data-album="Milk &amp; Honey" id="s7">
-    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('milk-honey-3.jpg')"></div></div>
-    <div class="slide-wash"></div><div class="slide-shade"></div>
-    <div class="slide-content">
-      <div class="eyebrow album-label">PHOTO · MILK &amp; HONEY — 03/03</div>
-    </div>
-  </section>
-
-  <div class="album-gap" aria-hidden="true"></div>
-
-  <!-- 7b-7c Moonlight -->
-  <section class="slide" data-accent="crimson" data-album="Moonlight" id="s7b">
-    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('Moonlight-1.jpg')"></div></div>
-    <div class="slide-wash"></div><div class="slide-shade"></div>
-    <div class="slide-content">
-      <div class="eyebrow album-label">PHOTO · MOONLIGHT — 01/02</div>
-      <h2 class="slide-title">Moonlight</h2>
-    </div>
-  </section>
-
-  <section class="slide" data-accent="crimson" data-album="Moonlight" id="s7c">
-    <div class="slide-bg-wrap"><div class="slide-bg bg-layer" style="background-image:url('Moonlight-2.jpg')"></div></div>
-    <div class="slide-wash"></div><div class="slide-shade"></div>
-    <div class="slide-content">
-      <div class="eyebrow album-label">PHOTO · MOONLIGHT — 02/02</div>
+    <div class="carousel-shell">
+      <button class="carousel-arrow left" data-carousel="moon" data-dir="-1" aria-label="Previous photo">‹</button>
+      <div class="carousel-track" id="track-moon"></div>
+      <button class="carousel-arrow right" data-carousel="moon" data-dir="1" aria-label="Next photo">›</button>
     </div>
   </section>
 
@@ -450,9 +477,6 @@
     var dot = document.createElement('button');
     dot.className = 'dot';
     dot.setAttribute('aria-label', 'Go to section ' + (i+1));
-    var prevAlbum = i > 0 ? slides[i-1].dataset.album : undefined;
-    var thisAlbum = slide.dataset.album;
-    if(thisAlbum && thisAlbum !== prevAlbum){ dot.classList.add('group-start'); }
     dot.addEventListener('click', function(){
       slide.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block:'start' });
     });
@@ -555,6 +579,123 @@
     video.addEventListener('play', function(){ btn.classList.add('hidden'); });
     video.addEventListener('pause', function(){ btn.classList.remove('hidden'); });
     video.addEventListener('ended', function(){ btn.classList.remove('hidden'); });
+  });
+
+  /* ---- Per-album photo carousels: each loops infinitely via tripled clone set ---- */
+  var albums = {
+    dante: {
+      name: "Dante's Retreat",
+      photos: ["Dante%27s-Retreat-2.jpg", "Dante%27s-Retreat-23.jpg", "Dante.png"]
+    },
+    honey: {
+      name: "Milk & Honey",
+      photos: ["milk-honey-1.jpg", "milk-honey-2.jpg", "milk-honey-3.jpg"]
+    },
+    moon: {
+      name: "Moonlight",
+      photos: ["Moonlight-1.jpg", "Moonlight-2.jpg"]
+    }
+  };
+
+  var carousels = {};
+
+  function initCarousel(key){
+    var album = albums[key];
+    var track = document.getElementById('track-' + key);
+    if(!album || !track) return;
+
+    var N = album.photos.length;
+
+    function buildItemEl(src, idx){
+      var el = document.createElement('div');
+      el.className = 'carousel-item';
+      el.innerHTML =
+        '<img src="' + src + '" alt="' + album.name + ' photo ' + (idx+1) + '">' +
+        '<div class="item-shade"></div>' +
+        '<div class="item-caption">' +
+          '<div class="item-eyebrow">' + (idx+1) + ' / ' + N + '</div>' +
+        '</div>';
+      return el;
+    }
+
+    // Tripled set: [clone][real][clone] for a seamless infinite loop.
+    for(var copy = 0; copy < 3; copy++){
+      album.photos.forEach(function(src, idx){
+        track.appendChild(buildItemEl(src, idx));
+      });
+    }
+
+    var itemWidth = 0;
+    var jumping = false;
+
+    function measure(){ itemWidth = track.clientWidth; }
+
+    function setInstant(scrollLeftValue){
+      jumping = true;
+      track.style.scrollBehavior = 'auto';
+      track.scrollLeft = scrollLeftValue;
+      requestAnimationFrame(function(){
+        track.style.scrollBehavior = '';
+        jumping = false;
+      });
+    }
+
+    measure();
+    setInstant(N * itemWidth);
+
+    window.addEventListener('resize', function(){
+      var currentIndex = Math.round(track.scrollLeft / (itemWidth || 1));
+      measure();
+      setInstant(currentIndex * itemWidth);
+    });
+
+    var scrollTimer = null;
+    track.addEventListener('scroll', function(){
+      if(jumping) return;
+      if(scrollTimer) clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(function(){
+        if(!itemWidth) return;
+        var index = Math.round(track.scrollLeft / itemWidth);
+        if(index < N){
+          setInstant((index + N) * itemWidth);
+        } else if(index >= N * 2){
+          setInstant((index - N) * itemWidth);
+        }
+      }, 120);
+    }, { passive:true });
+
+    carousels[key] = {
+      step: function(dir){
+        if(!itemWidth) measure();
+        track.scrollBy({ left: dir * itemWidth, behavior: reduceMotion ? 'auto' : 'smooth' });
+      },
+      track: track
+    };
+  }
+
+  Object.keys(albums).forEach(initCarousel);
+
+  document.querySelectorAll('.carousel-arrow').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var c = carousels[btn.dataset.carousel];
+      if(c){ c.step(parseInt(btn.dataset.dir, 10)); }
+    });
+  });
+
+  // Arrow keys steer whichever album carousel is currently on screen
+  document.addEventListener('keydown', function(e){
+    if(e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    var best = null, bestRatio = -1;
+    Object.keys(carousels).forEach(function(key){
+      var rect = carousels[key].track.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var overlap = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+      var ratio = Math.max(0, overlap / vh);
+      if(ratio > bestRatio){ bestRatio = ratio; best = carousels[key]; }
+    });
+    if(best && bestRatio > 0.3){
+      best.step(e.key === 'ArrowRight' ? 1 : -1);
+    }
   });
 })();
 </script>
