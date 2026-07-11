@@ -636,15 +636,26 @@
   var albums = {
     dante: {
       name: "Dante's Retreat",
-      photos: ["Dante%27s-Retreat-2.jpg", "Dante%27s-Retreat-23.jpg", "Dante.png"]
+      photos: [
+        { src: "Dante%27s-Retreat-2.jpg" },
+        { src: "Dante%27s-Retreat-23.jpg" },
+        { src: "Dante.png" }
+      ]
     },
     honey: {
       name: "Milk & Honey",
-      photos: ["milk-honey-1.jpg", "milk-honey-2.jpg", "milk-honey-3.jpg"]
+      photos: [
+        { src: "milk-honey-1.jpg" },
+        { src: "milk-honey-2.jpg" },
+        { src: "milk-honey-3.jpg", pos: "center 38%" }
+      ]
     },
     moon: {
       name: "Moonlight",
-      photos: ["Moonlight-1.jpg", "Moonlight-2.jpg"]
+      photos: [
+        { src: "Moonlight-1.jpg" },
+        { src: "Moonlight-2.jpg" }
+      ]
     }
   };
 
@@ -657,11 +668,12 @@
 
     var N = album.photos.length;
 
-    function buildItemEl(src, idx){
+    function buildItemEl(photo, idx){
       var el = document.createElement('div');
       el.className = 'carousel-item';
+      var posStyle = photo.pos ? ' style="object-position:' + photo.pos + ';"' : '';
       el.innerHTML =
-        '<img src="' + src + '" alt="' + album.name + ' photo ' + (idx+1) + '">' +
+        '<img src="' + photo.src + '"' + posStyle + ' alt="' + album.name + ' photo ' + (idx+1) + '">' +
         '<div class="item-shade"></div>' +
         '<div class="item-caption">' +
           '<div class="item-eyebrow">' + (idx+1) + ' / ' + N + '</div>' +
@@ -671,8 +683,8 @@
 
     // Tripled set: [clone][real][clone] for a seamless infinite loop.
     for(var copy = 0; copy < 3; copy++){
-      album.photos.forEach(function(src, idx){
-        track.appendChild(buildItemEl(src, idx));
+      album.photos.forEach(function(photo, idx){
+        track.appendChild(buildItemEl(photo, idx));
       });
     }
 
