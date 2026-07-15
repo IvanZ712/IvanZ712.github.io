@@ -62,6 +62,16 @@
     background-size:cover; background-position:center;
     will-change:opacity, transform;
   }
+  .video-bg-layer{
+    position:absolute; inset:0;
+    overflow:hidden;
+    will-change:opacity, transform;
+  }
+  .slide-bg-video{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover; object-position:center;
+  }
 
   .slide-wash{
     position:absolute; inset:0;
@@ -398,7 +408,13 @@
 
 <!-- 0 VIDEOS — title slide -->
   <section class="slide no-photo" data-accent="spectrum" id="s0v">
-    <div class="mesh-spectrum-wrap bg-layer"><div class="mesh-spectrum"></div></div>
+    <div class="slide-bg-wrap">
+      <div class="bg-layer video-bg-layer">
+        <video class="slide-bg-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
+          <source src="Video-Background.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
     <div class="slide-shade"></div>
     <div class="slide-content center">
       <h2 class="slide-title" style="font-size:clamp(40px,7vw,84px);">Videos</h2>
@@ -661,6 +677,23 @@
       }
     });
   }
+/* Background video: enforce mobile autoplay (iOS-safe) */
+  document.querySelectorAll('.slide-bg-video').forEach(function(bgv){
+    bgv.muted = true;
+    bgv.setAttribute('muted', '');
+    var tryPlay = function(){
+      var p = bgv.play();
+      if(p && p.catch){ p.catch(function(){}); }
+    };
+    tryPlay();
+    var retry = function(){
+      if(bgv.paused){ tryPlay(); }
+      document.removeEventListener('touchstart', retry);
+      document.removeEventListener('click', retry);
+    };
+    document.addEventListener('touchstart', retry, { once:true, passive:true });
+    document.addEventListener('click', retry, { once:true });
+  });
 })();
 </script>
 </body>
