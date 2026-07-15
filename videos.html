@@ -106,7 +106,7 @@
   .slide-content.center{
     margin:auto;
     text-align:center;
-    padding:8vh 8vw;
+    padding:6vh 3vw;
     display:flex; flex-direction:column; align-items:center;
   }
 
@@ -193,7 +193,7 @@
     box-shadow:0 30px 80px rgba(0,0,0,.6);
     margin:26px auto 0;
   }
-  .video-frame.lg{ max-width:min(960px, 92vw); }
+  .video-frame.lg{ max-width:min(1240px, 95vw); }
   .video-frame video, .video-frame iframe{ width:100%; height:100%; border:0; display:block; background:#000; }
   .play-btn{
     position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
@@ -214,6 +214,15 @@
     transition:opacity .3s ease;
   }
   #theater-backdrop.open{ opacity:1; pointer-events:auto; }
+  #theater-close{
+    position:fixed; top:22px; right:26px; z-index:310;
+    background:rgba(5,3,2,0.6); border:1px solid rgba(244,236,216,0.35);
+    color:var(--paper); width:44px; height:44px; border-radius:50%;
+    font-size:22px; line-height:1; cursor:pointer;
+    display:none; align-items:center; justify-content:center;
+  }
+  #theater-close.open{ display:flex; }
+  #theater-close:hover{ border-color:var(--gold); color:var(--gold); }
   .video-frame.theater-active{
     position:fixed !important;
     top:50%; left:50%;
@@ -363,6 +372,19 @@
     #page-menu-btn span{ width:15px; }
   }
 
+  /* ===== Video slide flavor: watermark index + role tags ===== */
+  .video-index{
+    position:absolute; z-index:1;
+    top:50%; left:50%; transform:translate(-50%,-56%);
+    font-family:var(--font-display); font-weight:800;
+    font-size:clamp(200px,42vw,560px);
+    line-height:1;
+    color:rgba(244,236,216,0.045);
+    pointer-events:none; user-select:none;
+  }
+  .video-frame{ transition:transform .3s ease, box-shadow .3s ease; }
+  .video-frame:hover{ transform:scale(1.012); box-shadow:0 36px 90px rgba(0,0,0,.7); }
+
 </style>
 </head>
 <body>
@@ -377,7 +399,7 @@
     </div>
   </div>
 
-  <div id="counter"><span id="counterCurrent">01</span> / <span id="counterTotal">07</span></div>
+  <div id="counter"><span id="counterCurrent">01</span> / <span id="counterTotal">08</span></div>
   <div id="dots"></div>
 
   <nav id="social-bar" aria-label="Social links">
@@ -399,11 +421,22 @@
   </nav>
 
 
+<!-- 0 VIDEOS — title slide -->
+  <section class="slide no-photo" data-accent="spectrum" id="s0v">
+    <div class="mesh-spectrum-wrap bg-layer"><div class="mesh-spectrum"></div></div>
+    <div class="slide-shade"></div>
+    <div class="slide-content center">
+      <h2 class="slide-title" style="font-size:clamp(40px,7vw,84px);">Videos</h2>
+      <p class="slide-desc">Cuts, edits, and full projects — press play on any of them.</p>
+    </div>
+  </section>
+
 <!-- 10 VIDEO: Quarantine (bigger) -->
   <section class="slide no-photo tall" data-accent="gold" id="s10">
     <div class="slide-mesh mesh-gold bg-layer"></div>
     <div class="slide-shade"></div>
-    <div class="slide-content center" style="max-width:1040px;">
+    <div class="video-index" aria-hidden="true">01</div>
+    <div class="slide-content center" style="max-width:1300px;">
       <div class="eyebrow">VIDEO · 01</div>
       <h2 class="slide-title">Quarantine Test Opening</h2>
       <p class="slide-desc">A title sequence cut together during lockdown — pacing carries the story even with zero budget and one room.</p>
@@ -420,13 +453,14 @@
   <section class="slide no-photo tall" data-accent="crimson" id="s11">
     <div class="slide-mesh mesh-crimson bg-layer"></div>
     <div class="slide-shade"></div>
-    <div class="slide-content center" style="max-width:1040px;">
+    <div class="video-index" aria-hidden="true">02</div>
+    <div class="slide-content center" style="max-width:1300px;">
       <div class="eyebrow">VIDEO · 02</div>
       <!-- Ivan: swap in the real title/description for this one -->
       <h2 class="slide-title">Featured Video</h2>
       <p class="slide-desc">Add a quick description here — what it is, and what you handled (edit / direction / both).</p>
       <div class="video-frame lg">
-        <iframe src="https://www.youtube.com/embed/-UgO388HKr0" title="Ivan Zapata — video project" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/-UgO388HKr0?enablejsapi=1" title="Ivan Zapata — video project" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </section>
@@ -435,12 +469,13 @@
   <section class="slide no-photo tall" data-accent="gold" id="s12">
     <div class="slide-mesh mesh-gold bg-layer"></div>
     <div class="slide-shade"></div>
-    <div class="slide-content center" style="max-width:1040px;">
+    <div class="video-index" aria-hidden="true">03</div>
+    <div class="slide-content center" style="max-width:1300px;">
       <div class="eyebrow">VIDEO · 03</div>
       <h2 class="slide-title">City Symphony: Laurel</h2>
       <p class="slide-desc">A visual portrait of everyday life and rhythm around Laurel.</p>
       <div class="video-frame lg">
-        <iframe src="https://www.youtube.com/embed/tgY2s6AMvYc" title="Ivan Zapata — City Symphony: Laurel" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/tgY2s6AMvYc?enablejsapi=1" title="Ivan Zapata — City Symphony: Laurel" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </section>
@@ -449,12 +484,13 @@
   <section class="slide no-photo tall" data-accent="crimson" id="s13">
     <div class="slide-mesh mesh-crimson bg-layer"></div>
     <div class="slide-shade"></div>
-    <div class="slide-content center" style="max-width:1040px;">
+    <div class="video-index" aria-hidden="true">04</div>
+    <div class="slide-content center" style="max-width:1300px;">
       <div class="eyebrow">VIDEO · 04</div>
       <h2 class="slide-title">Homeward Bound</h2>
       <p class="slide-desc">A short piece about heading home — pacing and place woven into one journey.</p>
       <div class="video-frame lg">
-        <iframe src="https://www.youtube.com/embed/hc3AOWaUIW0" title="Ivan Zapata — Homeward Bound" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/hc3AOWaUIW0?enablejsapi=1" title="Ivan Zapata — Homeward Bound" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </section>
@@ -463,12 +499,13 @@
   <section class="slide no-photo tall" data-accent="gold" id="s14">
     <div class="slide-mesh mesh-gold bg-layer"></div>
     <div class="slide-shade"></div>
-    <div class="slide-content center" style="max-width:1040px;">
+    <div class="video-index" aria-hidden="true">05</div>
+    <div class="slide-content center" style="max-width:1300px;">
       <div class="eyebrow">VIDEO · 05</div>
       <h2 class="slide-title">Malcom Todd: Earings Edit</h2>
       <p class="slide-desc">A music video edit built around Malcom Todd's track "Earrings."</p>
       <div class="video-frame lg">
-        <iframe src="https://www.youtube.com/embed/0Lm9VfqnqHA" title="Ivan Zapata — Malcom Todd: Earings Edit" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/0Lm9VfqnqHA?enablejsapi=1" title="Ivan Zapata — Malcom Todd: Earings Edit" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </section>
@@ -477,12 +514,13 @@
   <section class="slide no-photo tall" data-accent="crimson" id="s15">
     <div class="slide-mesh mesh-crimson bg-layer"></div>
     <div class="slide-shade"></div>
-    <div class="slide-content center" style="max-width:1040px;">
+    <div class="video-index" aria-hidden="true">06</div>
+    <div class="slide-content center" style="max-width:1300px;">
       <div class="eyebrow">VIDEO · 06</div>
       <h2 class="slide-title">Music Makes The Movie</h2>
       <p class="slide-desc">A documentary talking about the importance of music in film.</p>
       <div class="video-frame lg">
-        <iframe src="https://www.youtube.com/embed/Ru3RaZ0SZWo" title="Ivan Zapata — Music Makes The Movie" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/Ru3RaZ0SZWo?enablejsapi=1" title="Ivan Zapata — Music Makes The Movie" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </section>
@@ -491,18 +529,20 @@
   <section class="slide no-photo tall" data-accent="gold" id="s16">
     <div class="slide-mesh mesh-gold bg-layer"></div>
     <div class="slide-shade"></div>
-    <div class="slide-content center" style="max-width:1040px;">
+    <div class="video-index" aria-hidden="true">07</div>
+    <div class="slide-content center" style="max-width:1300px;">
       <div class="eyebrow">VIDEO · 07</div>
       <h2 class="slide-title">Workout With Isaac</h2>
       <p class="slide-desc">A fun, fast-paced workout video shot and edited for laughs.</p>
       <div class="video-frame lg">
-        <iframe src="https://www.youtube.com/embed/fHrctBKT-jo" title="Ivan Zapata — Workout With Isaac" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/fHrctBKT-jo?enablejsapi=1" title="Ivan Zapata — Workout With Isaac" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </section>
 
   <!-- Video theater overlay -->
   <div id="theater-backdrop" aria-hidden="true"></div>
+  <button id="theater-close" aria-label="Close video">×</button>
 
 <script>
 (function(){
@@ -621,12 +661,15 @@
   var backdrop = document.getElementById('theater-backdrop');
   var theaterActiveBox = null;
 
+  var theaterCloseBtn = document.getElementById('theater-close');
+
   function openTheater(box){
     if(theaterActiveBox === box) return;
     theaterActiveBox = box;
     box.classList.add('theater-active');
     backdrop.classList.add('open');
     backdrop.setAttribute('aria-hidden', 'false');
+    if(theaterCloseBtn){ theaterCloseBtn.classList.add('open'); }
   }
 
   function closeTheater(){
@@ -635,9 +678,11 @@
     theaterActiveBox = null;
     backdrop.classList.remove('open');
     backdrop.setAttribute('aria-hidden', 'true');
+    if(theaterCloseBtn){ theaterCloseBtn.classList.remove('open'); }
   }
 
   backdrop.addEventListener('click', closeTheater);
+  if(theaterCloseBtn){ theaterCloseBtn.addEventListener('click', closeTheater); }
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape' && theaterActiveBox){ closeTheater(); }
   });
@@ -678,6 +723,25 @@
       }
     });
   }
+/* YouTube embeds: open theater mode on play via IFrame API */
+  var ytTag = document.createElement('script');
+  ytTag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(ytTag);
+
+  window.onYouTubeIframeAPIReady = function(){
+    document.querySelectorAll('.video-frame iframe[src*="youtube.com/embed"]').forEach(function(frame){
+      var box = frame.closest('.video-frame');
+      new YT.Player(frame, {
+        events: {
+          onStateChange: function(e){
+            if(e.data === YT.PlayerState.PLAYING){
+              openTheater(box);
+            }
+          }
+        }
+      });
+    });
+  };
 })();
 </script>
 </body>
